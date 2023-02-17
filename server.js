@@ -1,15 +1,21 @@
 'use strict';
 
 const app = require('./src/Routes');
+const { Pool } = require('pg');
 
-const mongoose = require('mongoose');
-const connection = 'mongodb://mongo:27017/<TODO_YOUR_APP_DB>';
 const PORT = 8080;
+const pool = new Pool({
+	user: 'myuser',
+	host: 'localhost',
+	database: 'mydb',
+	password: 'mypassword',
+	port: 5432,
+});
 
 app.listen(PORT, async function() {
 	console.log(`Listening on ${PORT}`);
-	try {
-		await mongoose.connect(connection);
+	try{
+		await pool.connect();
 		console.log('DB connected');
 		return true;
 	} catch(error) {

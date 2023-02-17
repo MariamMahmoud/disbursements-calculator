@@ -1,0 +1,4 @@
+# Copy to .env and setup values
+ENV=
+POSTGRESS_URL=
+TIME_SCHEDULE=
