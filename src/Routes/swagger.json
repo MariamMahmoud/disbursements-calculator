@@ -1,0 +1,96 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+      "title": "Disbursements Calculator - OpenAPI 3.0",
+      "description": "add text gere",
+      "version": "1.0"
+    },
+    "tags": [
+      {
+        "name": "Disbursmenet",
+        "description": "All disbursements operations"
+      }
+    ],
+    "paths": {
+      "/disbursements": {
+        "get": {
+          "tags": [
+            "Disbursmenet"
+          ],
+          "summary": "list dibursements by week and (optional) merchant_id",
+          "parameters": [
+            {
+              "name": "week",
+              "in": "query",
+              "description": "monday of the week to get disbursements by",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "dd-mm-yyy"
+              }
+            },
+            {
+              "name": "merchant_id",
+              "in": "query",
+              "description": "optional merchantId to query",
+              "required": false,
+              "schema": {
+                "type": "number"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/Merchant"
+                      },
+                      {
+                        "$ref": "#/components/schemas/Merchants"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Invalid merchantId value"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Merchant": {
+          "required": [
+            "id",
+            "disbursements"
+          ],
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "format": "int64",
+              "example": 10
+            },
+            "disbursements": {
+              "type": "number",
+              "example": 10.5
+            }
+          }
+        },
+        "Merchants": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/Merchant"
+          }
+        }
+      }
+    }
+  }
+  

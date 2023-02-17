@@ -5,16 +5,19 @@ jobs:
   build-and-test:
     docker:
       - image: node:12
-      - image: mongo
+      - image: mcr.microsoft.com/mssql/server:2022-latest
     executor:
       name: node/default
     environment: 
-      - MONGO_URL: "mongodb://localhost:27017/notifications-test-db"
+      - POSTGRESS_URL: "postgres://myUser:myPassword:5432/mydb"
     steps:
       - checkout
       - node/with-cache:
           steps:
             - run: npm install
+            - run: npm migrate
+            - run: npm seed
+            - run: npm lint
             - run: npm test
 workflows:
     build-and-test:
