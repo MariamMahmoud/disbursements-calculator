@@ -28,6 +28,5 @@ Use the following command to run app `npm start`
 Use the following command to run tests `npm test`
 
 ### TODOs:
-- Add swagger docs
-- Add tests
+- Fill up tests
 - Setup circle ci project 
